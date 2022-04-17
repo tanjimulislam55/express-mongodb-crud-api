@@ -8,5 +8,4 @@ const db = {}
 db.mongoose = mongoose
 db.url = dbConfig.url
 db.blogs = require("./blog.model.js")(mongoose)
-
-module.exports = db
+module.exports = db 

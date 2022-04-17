@@ -1,7 +1,7 @@
 const db = require("../models")
 const Blog = db.blogs
 
-exports.create = (req, res) => {
+exports.create = async (req, res) => {
     if (!req.body.title) {
         res.status(400).send({ message: "content required"})
         return
@@ -10,13 +10,13 @@ exports.create = (req, res) => {
     const blog = new Blog({
         title: req.body.title,
         author: req.body.author,
-        paragraphs: {
-            description: req.body.description
-        }
+        paragraphs:req.body.paragraphs
     })
-    blog.save(blog).then((data) => res.send(data).catch((err) => {
+
+    // console.log( await new Blog({title:'title 1', author: "autho 1"}).save());
+    blog.save().then((data) => res.send(data)).catch((err) => {
         res.status(500).send({ message: err.message })
-    }))
+    })
 }
 
 
