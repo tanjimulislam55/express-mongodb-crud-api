@@ -2,7 +2,6 @@ module.exports = mongoose => {
     const paragraphSchema = mongoose.Schema(
         {
             description: String,
-            serial: Number
         }
     )
     const blogSchema = mongoose.Schema(

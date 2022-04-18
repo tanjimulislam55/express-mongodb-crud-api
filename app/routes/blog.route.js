@@ -5,11 +5,13 @@ module.exports = app => {
 
     router.post("/", blogs.create)
 
+    router.put("/:id", blogs.updateToPush)
+
     router.get("/", blogs.findAll);
 
     router.get("/:id", blogs.findOne);
 
-    router.put("/:id", blogs.update);
+    // router.put("/:id", blogs.update);
 
     router.delete("/:id", blogs.delete);
 
