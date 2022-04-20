@@ -24,10 +24,14 @@ exports.updateToPush = async (req, res) => {
                 
                 $each: [ req.body.paragraph],
                 $position: req.body.paragraph.serial
-            } }, 
+            } },
         },
     )
-    return res.send({ message: "Blog was updated successfully." })
+    // try to solve using builtin js array method
+    // data = await Blog.findById(id)
+    // await data.paragraphs.splice(req.body.paragraph.serial, 0, req.body.paragraph)
+    // await Blog.replaceOne({ _id: id }, { title: data.title, author: data.author, paragraphs:  [...data]})
+    // return res.send({ message: "Blog was updated successfully." })
 
 //     const id = req.params.id
 //     // search specific blog with id 
@@ -76,24 +80,16 @@ exports.findAll = async (req, res) => {
   
     data = await Blog.find(condition)
     if (data) return res.send(data)
-    // else return res.status(500).send({ message: data.message })
+    else return res.status(500).send({ message: data.message })
   };
   
-exports.findOne = (req, res) => {
+exports.findOne = async (req, res) => {
     const id = req.params.id;
-  
-    Blog.findById(id)
-        .then(data => {
-            if (!data)
-                res.status(404).send({ message: "Not found Blog with id " + id });
-            else res.send(data);
-        })
-        .catch(err => {
-            res
-            .status(500)
-            .send({ message: "Error retrieving Blog with id = " + id });
-        });
-  };
+
+    data = await Blog.findById(id)
+    if (data) return res.send(data)
+    else res.status(404).send({ message: `Not found blog with id ${id}` })
+}
   
   
 exports.delete = async (req, res) => {
@@ -118,7 +114,7 @@ exports.delete = async (req, res) => {
     //     });
           
     //   });
-  };
+}
   
 exports.deleteAll = (req, res) => {
     Blog.deleteMany({})
@@ -133,5 +129,4 @@ exports.deleteAll = (req, res) => {
             err.message
         });
     });
-};
-  
+}

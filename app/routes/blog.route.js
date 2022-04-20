@@ -11,8 +11,6 @@ module.exports = app => {
 
     router.get("/:id", blogs.findOne);
 
-    // router.put("/:id", blogs.update);
-
     router.delete("/:id", blogs.delete);
 
     router.delete("/", blogs.deleteAll);
